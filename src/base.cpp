@@ -1,4 +1,6 @@
 #include <fstream>
+#include <algorithm>
+#include <iostream>
 
 #include "base.h"
 
@@ -23,8 +25,23 @@ Base::~Base() {
 // char *Base::getData() { return data; }
 // int Base::getM() { return m; }
 // int Base::getN() { return n; }
-const vector <vector <Node> > &Base::getSupport() const {
+const vector <vector <Node> > &Base::getSupports() const {
     return layersSupport;
+}
+
+const vector <Node *> &Base::getTotalSupports() const {
+    return totalSupports;
+}
+
+void Base::sort(const string &sort_type) {
+    if (sort_type.compare("inc") == 0) {
+        cout << sort_type << endl;
+        std::sort(totalSupports.begin(), totalSupports.end(), [](Node *a, Node *b) { return a->getSupport() < b->getSupport(); });
+    }
+    if (sort_type.compare("des") == 0) {
+        cout << sort_type << endl;
+        std::sort(totalSupports.begin(), totalSupports.end(), [](Node *a, Node *b) { return a->getSupport() > b->getSupport(); });
+    }
 }
 
 /***********
@@ -68,7 +85,9 @@ void Base::countSupport() {
 
 void Base::mergeLayers() {
     // NO, DO A HASH!
-    // for (int j = 0; j < layersSupport.size(); ++j) {
-
-    // }
+    for (size_t j = 0; j < layersSupport.size(); ++j) {
+        for (size_t i = 0; i < layersSupport[j].size(); ++i) {
+            totalSupports.push_back(&layersSupport[j][i]);
+        }
+    }
 }

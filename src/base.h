@@ -15,7 +15,10 @@ public:
     // char *getData();
     // int getM();
     // int getN();
-    const vector <vector <Node> > &getSupport() const;
+    const vector <vector <Node> > &getSupports() const;
+    const vector <Node *> &getTotalSupports() const;
+
+    void sort(const string &sort_type);
 
 private:
     int m; // Amount of transactions

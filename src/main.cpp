@@ -9,7 +9,7 @@ using namespace std;
 #define ARGC 6
 #define HELP "Usage: ./apriori <support_threshold> <sort_type> <max_rules> <goods> <transactions> <filename>\n\
 1) double support_threshold - minimum \"support\" value of Apriori algorithm in percents\n\
-2) char   sort_type[]       - \"inc\", \"dec\" or \"none\"\n\
+2) char   sort_type[]       - \"inc\", \"des\" or \"none\"\n\
 3) int    max_rules         - maximum amount of rules to be displayed\n\
 4) int    goods             - amount of goods' types in database\n\
 5) int    transactions      - amount of transactions in database\n\
@@ -30,9 +30,10 @@ int main(int argc, char *argv[]) {
     cout << support_threshold << endl << sort_type << endl << max_rules << endl << goods << endl << transactions << endl << filename << endl;
 
     Base base(filename, transactions, goods, support_threshold);
+    base.sort(sort_type);
 
-    for(vector <Node>::const_iterator it = base.getSupport().at(0).begin(); it != base.getSupport().at(0).end(); ++it) {
-        cout << (*it).getName() << ' ' << (double) (*it).getSupport() / transactions << endl;
+    for(vector <Node *>::const_iterator it = base.getTotalSupports().begin(); it != base.getTotalSupports().end(); ++it) {
+        cout << (*it)->getName() << ' ' << (double) (*it)->getSupport() / transactions << endl;
     }
     // for (int j = 0; j < base.getM(); ++j) {
     //     cout << j << ' ';
