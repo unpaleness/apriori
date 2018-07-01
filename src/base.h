@@ -12,9 +12,6 @@ class Base {
 public:
     Base(const string &filename, int m, int n, double supportThreshold);
     ~Base();
-    // char *getData();
-    // int getM();
-    // int getN();
     const vector <vector <Node> > &getSupports() const;
     const vector <Node *> &getTotalSupports() const;
 
@@ -24,7 +21,7 @@ private:
     int m; // Amount of transactions
     int n; // Amount of goods
     double supportThreshold;
-    char *data;
+    vector <bool> data;
     vector <vector <Node> > layersSupport;
     vector <Node *> totalSupports;
 

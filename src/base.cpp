@@ -19,12 +19,8 @@ Base::Base(const string &filename, int m, int n, double supportThreshold) :
 }
 
 Base::~Base() {
-    delete [] data;
 }
 
-// char *Base::getData() { return data; }
-// int Base::getM() { return m; }
-// int Base::getN() { return n; }
 const vector <vector <Node> > &Base::getSupports() const {
     return layersSupport;
 }
@@ -50,12 +46,11 @@ void Base::sort(const string &sort_type) {
 
 void Base::read(const string &filename) {
     ifstream input(filename, ios::in);
-    data = new char [m * n];
     for (int j = 0; j < m; ++j) {
         char buf[n + 1];
         input.getline(buf, n + 1);
         for (int i = 0; i < n; ++i) {
-            data[j * n + i] = buf[i];
+            data.push_back((bool)(int)(buf[i] - 48));
         }
     }
     input.close();
@@ -70,7 +65,7 @@ void Base::countSupport() {
     }
     for (int j = 0; j < m; ++j) {
         for (int i = 0; i < n; ++i) {
-            if (data[j * n + i] == '1') {
+            if (data[j * n + i]) {
                 ++layer[i];
             }
         }
